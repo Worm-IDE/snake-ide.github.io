@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import React, {useState, useEffect, useRef, useCallback} from 'react';
 import ReactModal from 'react-modal';
@@ -13,9 +14,11 @@ import helpIcon from '../../lib/assets/icon--help.svg';
 
 import styles from './modal.css';
 
-const animOut = 200; // ms
+
 
 const ModalComponent = props => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const animOut = props.animPref == "none" ? 0 : 200; // ms
     const [visible, setVisible] = useState(false); // provides a clear way to check visibility
     const waitOut = useRef(null);
     const onReqCloseRef = useRef(props.onRequestClose);
@@ -50,13 +53,15 @@ const ModalComponent = props => {
                     [styles.fullScreen]: props.fullScreen,
                     [styles.modalFsVisible]: visible && props.fullScreen,
                     [styles.modalVisible]: visible && !props.fullScreen,
-                    [styles.extModal]: props.kind == 'extension'
+                    [styles.extModal]: props.kind == 'extension',
+                    [styles.noAnimation]: (props.animPref != 'intense' && props.fullScreen) || props.animPref == 'none' || prefersReducedMotion
                 }
             )}
             contentLabel={props.contentLabel}
             overlayClassName={classNames(styles.modalOverlay, {
                 [styles.scrollable]: props.scrollable,
                 [styles.modalOverlayVisible]: visible,
+                [styles.noAnimation]: (props.animPref != 'intense' && props.fullScreen) || props.animPref == 'none' || prefersReducedMotion
             })}
         >
             <Box
@@ -144,7 +149,16 @@ ModalComponent.propTypes = {
     isRtl: PropTypes.bool,
     onHelp: PropTypes.func,
     onRequestClose: PropTypes.func,
-    scrollable: PropTypes.bool
+    scrollable: PropTypes.bool,
+    animPref: PropTypes.string 
 };
 
-export default ModalComponent;
+const mapStateToProps = (state) => {
+    return {
+        animPref: state.scratchGui.addonUtil.editorAnimPref,
+    };
+};
+
+export default connect(
+    mapStateToProps
+)(ModalComponent);

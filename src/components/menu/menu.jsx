@@ -1,16 +1,20 @@
 import classNames from 'classnames';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import React, {useState, useEffect, useRef} from 'react';
 import styles from './menu.css';
 
-const animIn = 0; // ms, you could add a delay but it doesn't feel right
+
 
 const MenuComponent = ({
     className = '',
     children,
     componentRef,
+    animPref,
     place = 'right'
-}) => {
+}, props) => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const animIn = animPref == "none" ? 0 : 0; // ms, you could add a delay but it doesn't feel right
     const [visible, setVisible] = useState(false); // provides a clear way to check visibility
     const waitOut = useRef(null);
 
@@ -30,6 +34,7 @@ const MenuComponent = ({
                     [styles.left]: place === 'left',
                     [styles.right]: place === 'right',
                     [styles.menuVisible]: visible,
+                    [styles.noAnimation]: animPref == 'none' || prefersReducedMotion
                 }
             )}
             ref={componentRef}
@@ -91,8 +96,14 @@ MenuSection.propTypes = {
     children: PropTypes.node
 };
 
-export {
-    MenuComponent as default,
-    MenuItem,
-    MenuSection
+export { MenuItem, MenuSection }; 
+
+const mapStateToProps = (state) => {
+    return {
+        animPref: state.scratchGui.addonUtil.editorAnimPref,
+    };
 };
+
+export default connect(
+    mapStateToProps
+)(MenuComponent);
