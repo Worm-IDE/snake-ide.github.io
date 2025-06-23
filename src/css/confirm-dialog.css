@@ -16,6 +16,10 @@
     background-color: #333a;
 }
 
+.noAnimation {
+    transition: opacity 0s linear, transform 0s linear !important;
+}
+
 .baseVisible {
     opacity: 1;
 }

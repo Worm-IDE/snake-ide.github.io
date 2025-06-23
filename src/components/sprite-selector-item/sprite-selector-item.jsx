@@ -44,9 +44,10 @@ const SpriteSelectorItem = props => {
     return (
         <ContextMenuTrigger
             attributes={{
-                className: classNames(props.className, styles.spriteSelectorItem, {
+                className: classNames(props.className, styles.spriteSelectorParent, {
                     [styles.isSelected]: props.selected,
-                    [styles.deleting]: !visible,
+                    [styles.deletingFly]: !visible && (props.deleteAnim == "fly"),
+                    [styles.deletingShrink]: !visible && (props.deleteAnim == "shrink"),
                     [styles.noAnimation]: props.animPref == 'none' || prefersReducedMotion
                 }),
                 onClick: props.onClick,
@@ -58,7 +59,9 @@ const SpriteSelectorItem = props => {
             disable={props.preventContextMenu}
             id={`${props.name}-${contextMenuId}`}
             ref={props.componentRef}
-        >
+        >   <div className={classNames(props.className, styles.spriteSelectorItem, {
+            [styles.isSelected]: props.selected,
+        })}>
             {typeof props.number === 'undefined' ? null : (
                 <div className={styles.number}>{props.number}</div>
             )}
@@ -85,6 +88,7 @@ const SpriteSelectorItem = props => {
                     onClick={onDelete}
                 />
             ) : null}
+            </div>
             {props.onDuplicateButtonClick || props.onDeleteButtonClick || props.onExportButtonClick ? (
                 <ContextMenu id={`${props.name}-${contextMenuId++}`}>
                     {props.onDuplicateButtonClick ? (
@@ -152,6 +156,7 @@ SpriteSelectorItem.propTypes = {
 const mapStateToProps = (state) => {
     return {
         animPref: state.scratchGui.addonUtil.editorAnimPref,
+        deleteAnim: state.scratchGui.addonUtil.editorDeleteAnim,
     };
 };
 
