@@ -909,7 +909,7 @@ const menuItems = [
         name: 'Vector',
         extensionId: 'jwVector',
         iconURL: jwVectorExtensionThumb,
-        tags: ['penguinmod'],
+        tags: ['penguinmod', 'math'],
         description: 'Vector type for calculating with X and Y coordinates.',
         extDeveloper: 'jwklong',
         featured: true
