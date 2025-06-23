@@ -9,13 +9,23 @@ export const createEditorModal = (tab, title, {isOpen = false} = {}) => {
         className: tab.scratchClass('modal_modal-overlay'),
         dir: tab.direction
     });
+    setTimeout(() => {
+        container.classList.add(tab.scratchClass('modal_modal-overlay-visible'));
+    });
     container.style.display = isOpen ? '' : 'none';
     document.body.appendChild(container);
+    const modalOuter = Object.assign(document.createElement('div'), {
+        className: tab.scratchClass('modal_modal-container')
+    });
     const modal = Object.assign(document.createElement('div'), {
-        className: tab.scratchClass('modal_modal-content')
+        className: tab.scratchClass('modal_modal-content-addons')
+    });
+    modalOuter.appendChild(modal);
+    setTimeout(() => {
+        modalOuter.classList.add(tab.scratchClass('modal_modal-visible'));
     });
     modal.addEventListener('click', e => e.stopPropagation());
-    container.appendChild(modal);
+    container.appendChild(modalOuter);
     const header = Object.assign(document.createElement('div'), {
         className: tab.scratchClass('modal_header')
     });
@@ -45,7 +55,7 @@ export const createEditorModal = (tab, title, {isOpen = false} = {}) => {
     });
     modal.appendChild(content);
     return {
-        container: modal,
+        container: modalOuter,
         content,
         backdrop: container,
         closeButton,
