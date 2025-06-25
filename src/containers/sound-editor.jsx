@@ -795,8 +795,8 @@ const mapStateToProps = (state, { soundIndex }) => {
     const sprite = state.scratchGui.vm.editingTarget.sprite;
     // Make sure the sound index doesn't go out of range.
     const index = soundIndex < sprite.sounds.length ? soundIndex : sprite.sounds.length - 1;
-    const sound = state.scratchGui.vm.editingTarget.sprite.sounds[index];
-    const audioBuffer = state.scratchGui.vm.getSoundBuffer(index);
+    const sound = sprite.sounds[index];
+    const audioBuffer = state.scratchGui.vm.getSoundBuffer(index) ?? {};
     return {
         isStereo: audioBuffer.numberOfChannels !== 1,
         duration: sound.sampleCount / sound.rate,
