@@ -795,6 +795,7 @@ const mapStateToProps = (state, { soundIndex }) => {
     const sprite = state.scratchGui.vm.editingTarget.sprite;
     // Make sure the sound index doesn't go out of range.
     const index = Math.max(sprite.sounds.length - 1, Math.min(0, soundIndex));
+    console.log(index, soundIndex, state.scratchGui.vm.editingTarget, state.scratchGui.vm.editingTarget.id);
     const sound = sprite.sounds[index] ?? {};
     const audioBuffer = state.scratchGui.vm.getSoundBuffer(index) ?? {};
     return {
@@ -804,7 +805,7 @@ const mapStateToProps = (state, { soundIndex }) => {
         soundId: sound.soundId,
         dataFormat: sound.dataFormat,
         sampleRate: audioBuffer.sampleRate,
-        samples: audioBuffer.getChannelData(0),
+        samples: audioBuffer?.getChannelData(0),
         isFullScreen: state.scratchGui.mode.isFullScreen,
         name: sound.name,
         vm: state.scratchGui.vm,
