@@ -796,15 +796,15 @@ const mapStateToProps = (state, { soundIndex }) => {
     // Make sure the sound index doesn't go out of range.
     const index = Math.max(sprite.sounds.length - 1, Math.min(0, soundIndex));
     const sound = sprite.sounds[index] ?? {};
-    const audioBuffer = state.scratchGui.vm.getSoundBuffer(index) ?? {};
+    const audioBuffer = state.scratchGui.vm.getSoundBuffer(index);
     return {
         isStereo: audioBuffer.numberOfChannels !== 1,
         duration: sound.sampleCount / sound.rate,
         size: sound.asset ? sound.asset.data.byteLength : 0,
         soundId: sound.soundId,
         dataFormat: sound.dataFormat,
-        sampleRate: audioBuffer.sampleRate,
-        samples: audioBuffer ? audioBuffer.getChannelData(0) : [],
+        sampleRate: audioBuffer.sampleRate ?? 3000,
+        samples: audioBuffer ? audioBuffer.getChannelData(0) : new Float32Array(1),
         isFullScreen: state.scratchGui.mode.isFullScreen,
         name: sound.name,
         vm: state.scratchGui.vm,
