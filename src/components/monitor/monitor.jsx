@@ -45,14 +45,8 @@ const MonitorComponent = props => (
             defaultClassNameDragging={styles.dragging}
             disabled={!props.draggable}
             onStop={props.onDragEnd}
-            onDrag={(e, data) => {
-                const overlay = document.querySelector('.monitor-overlay > .'+styles.monitorListScaler);
-                const transform = overlay?.style.transform;
-                const match = transform?.match(/scale\(([^)]+)\)/);
-                const scale = match ? parseFloat(match[1]) : 1;
-                data.deltaX /= scale;
-                data.deltaY /= scale;
-                data.node.style.transform = `translate(${data.x}px, ${data.y}px)`;
+            onDrag={(e) => {
+                console.log(e, "im dragging?")
             }}
         >
             <Box
