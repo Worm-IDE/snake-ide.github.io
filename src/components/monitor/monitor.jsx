@@ -46,7 +46,9 @@ const MonitorComponent = props => (
             disabled={!props.draggable}
             onStop={props.onDragEnd}
             onDrag={(e) => {
-                console.log(e, "im dragging?")
+                // react-draggable doesnt account for scaling, so need to handle that so the monitor
+                // bounds dont seem shrunken
+                if (window.tester) window.tester(e, this, props);
             }}
         >
             <Box
