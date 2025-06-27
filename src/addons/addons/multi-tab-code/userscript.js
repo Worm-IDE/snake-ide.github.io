@@ -425,8 +425,9 @@ export default async function ({ addon, msg, console }) {
     tab.element.parentElement.remove();
     tabs.splice(idx, 1);
     if (!tabs[selectedTab]) selectedTab--;
+    const shouldntDelete = addon.settings.get('shouldDelete');
     for (const script of tab.blocks._scripts) {
-      if (!addon.settings.get('shouldDelete'))
+      if (shouldntDelete == 'true')
         copyScript(script, tabs[selectedTab].blocks);
       tabTarget.blocks.deleteBlock(script);
     }
