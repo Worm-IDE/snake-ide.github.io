@@ -208,12 +208,15 @@ export default async function ({ addon, msg, console }) {
     getInput() { return null }
     getProcCode() { return this.mutation.proccode }
     get workspace() { return ScratchBlocks.getMainWorkspace() }
-    mutationToDom() {
+    mutationToDom(generateShadows) {
       const blocks = vm.editingTarget.blocks;
       const str = blocks.mutationToXML(this.mutation);
       const parser = new DOMParser();
-      const dom = parser.parseFromString(`<xml>${str}</xml>`, 'text/xml');
-      return dom.firstChild.firstChild;
+      const element = parser.parseFromString(`<xml>${str}</xml>`, 'text/xml')
+        .firstChild.firstChild;
+      if (generateShadows)
+        element.setAttribute('generateshadows', 'true');
+      return element;
     }
     domToMutation(dom) {
       const blocks = vm.editingTarget.blocks;
@@ -238,7 +241,7 @@ export default async function ({ addon, msg, console }) {
       const block = blocks._blocks[id];
       if (block.opcode === 'procedures_prototype' && !blockMutes[block.mutation.proccode]) {
         const wrapper = new MutatorWrapper(block.mutation, id);
-        blockMutes[block.mutation.proccode] = wrapper.mutationToDom();
+        blockMutes[block.mutation.proccode] = wrapper.mutationToDom(true);
       }
     }
     return Object.values(blockMutes);
