@@ -9,10 +9,12 @@ const getMoveTool = (tool) => {
 };
 
 let moveTool;
+let patchedSelectTool = false, patchedReshapeTool = false;
 
 export const updateSelectTool = (paper, tool) => {
   const lib = loadModules(paper);
   moveTool = getMoveTool(tool);
+  updatePatches(tool);
   const {
     math: { checkPointsClose, snapDeltaToAngle },
     view: { getActionBounds, CENTER },
@@ -92,6 +94,35 @@ export const updateSelectTool = (paper, tool) => {
   };
 
   let removeGuides;
+
+  function updatePatches(tool) {
+    if ("selectionBoxTool" in tool && "boundingBoxTool" in tool) {
+      // select tool
+      if (patchedSelectTool) return;
+      patchedSelectTool = true;
+    } else {
+      // reshape tool
+      if (patchedReshapeTool) return;
+      patchedReshapeTool = true;
+    }
+
+    const oldMouseDrag = moveTool.constructor.prototype.onMouseDrag;
+    moveTool.constructor.prototype.onMouseDrag = onMouseDrag;
+
+    const oldMouseDown = moveTool.constructor.prototype.onMouseDown;
+    moveTool.constructor.prototype.onMouseDown = function (...a) {
+      if (snapOn) moveTool.constructor.prototype.onMouseDrag = onMouseDrag;
+      else moveTool.constructor.prototype.onMouseDrag = oldMouseDrag;
+
+      oldMouseDown.apply(this, a);
+    };
+
+    const oldMouseUp = moveTool.constructor.prototype.onMouseUp;
+    moveTool.constructor.prototype.onMouseUp = function (...a) {
+      removeGuides?.();
+      oldMouseUp.apply(this, a);
+    };
+  }
 
   function onMouseDrag(event) {
     const point = event.point;
@@ -307,22 +338,7 @@ export const updateSelectTool = (paper, tool) => {
     getDragCrosshairLayer().opacity = CROSSHAIR_FULL_OPACITY * opacityMultiplier;
   }
 
-  const oldMouseDrag = moveTool.constructor.prototype.onMouseDrag;
-  moveTool.constructor.prototype.onMouseDrag = onMouseDrag;
-
-  const oldMouseDown = moveTool.constructor.prototype.onMouseDown;
-  moveTool.constructor.prototype.onMouseDown = function (...a) {
-    if (snapOn) moveTool.constructor.prototype.onMouseDrag = onMouseDrag;
-    else moveTool.constructor.prototype.onMouseDrag = oldMouseDrag;
-
-    oldMouseDown.apply(this, a);
-  };
-
-  const oldMouseUp = moveTool.constructor.prototype.onMouseUp;
-  moveTool.constructor.prototype.onMouseUp = function (...a) {
-    removeGuides?.();
-    oldMouseUp.apply(this, a);
-  };
+  updatePatches(tool);
 };
 
 export const isSelectTool = (tool) => {
