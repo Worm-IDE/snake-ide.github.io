@@ -4,7 +4,7 @@ import { loadModules, Modes, BitmapModes } from "./helpers.js";
 import { snapOn, threshold, guideColor } from "./state.js";
 
 const getMoveTool = (tool) => {
-  if (tool?.mode === "SELECTION_BOX") return tool;
+  if (tool?.mode === "SELECTION_BOX" || tool?.mode === "FILL" || tool?.mode === "POINT" || tool?.mode === "HANDLE") return tool;
   else return tool.boundingBoxTool._modeMap.MOVE;
 };
 
@@ -347,6 +347,6 @@ export const updateSelectTool = (paper, tool, optIsGUI) => {
 export const isSelectTool = (tool) => {
   return (
     ("selectionBoxTool" in tool && "boundingBoxTool" in tool) || /* select tool */
-    (tool?.mode === "SELECTION_BOX") /* reshape tool */
+    (tool?.mode === "SELECTION_BOX" || tool?.mode === "FILL" || tool?.mode === "POINT" || tool?.mode === "HANDLE") /* reshape tool */
   );
 };
