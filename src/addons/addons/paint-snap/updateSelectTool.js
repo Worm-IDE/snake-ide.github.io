@@ -11,6 +11,7 @@ const getMoveTool = (tool) => {
 
 let moveTool;
 let patchedSelectTool = false, patchedReshapeTool = false;
+let removeGuides;
 
 export const updateSelectTool = (paper, tool, optIsGUI) => {
   if (optIsGUI) {
@@ -96,8 +97,6 @@ export const updateSelectTool = (paper, tool, optIsGUI) => {
     guidePoint.bringToFront();
     getLayer("isGuideLayer").addChildren([guideLine, guidePoint]);
   };
-
-  let removeGuides;
 
   function updatePatches(tool) {
     if ("selectionBoxTool" in tool && "boundingBoxTool" in tool) {
