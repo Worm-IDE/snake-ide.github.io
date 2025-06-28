@@ -30,6 +30,9 @@
   border-radius: 3px;
   border: none;
 }
+[theme=dark] .tab-adder-button {
+  filter: invert(1);
+}
 .tab-adder-button:hover {
   background-color: rgba(0 0 0 / 15%);
 }
