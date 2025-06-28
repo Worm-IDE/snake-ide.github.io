@@ -323,7 +323,8 @@ export const updateSelectTool = (paper, tool) => {
 };
 
 export const isSelectTool = (tool) => {
-  return 
+  return (
     ("selectionBoxTool" in tool && "boundingBoxTool" in tool) || /* select tool */
-    (tool?.mode === "SELECTION_BOX"); /* reshape tool */
+    (tool?.mode === "SELECTION_BOX") /* reshape tool */
+  );
 };
