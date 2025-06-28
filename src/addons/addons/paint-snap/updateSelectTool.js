@@ -11,11 +11,13 @@ const getMoveTool = (tool) => {
 let moveTool;
 let patchedSelectTool = false, patchedReshapeTool = false;
 
-export const updateSelectTool = (paper, tool) => {
-  console.log("update request");
+export const updateSelectTool = (paper, tool, optIsGUI) => {
+  if (optIsGUI) {
+    moveTool = getMoveTool(tool);
+    updatePatches(tool);
+    return;
+  }
   const lib = loadModules(paper);
-  moveTool = getMoveTool(tool);
-  updatePatches(tool);
   const {
     math: { checkPointsClose, snapDeltaToAngle },
     view: { getActionBounds, CENTER },
