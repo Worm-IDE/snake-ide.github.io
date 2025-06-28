@@ -12,6 +12,7 @@ let moveTool;
 let patchedSelectTool = false, patchedReshapeTool = false;
 
 export const updateSelectTool = (paper, tool) => {
+  console.log("update request");
   const lib = loadModules(paper);
   moveTool = getMoveTool(tool);
   updatePatches(tool);
