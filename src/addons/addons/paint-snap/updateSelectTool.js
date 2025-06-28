@@ -105,7 +105,7 @@ export const updateSelectTool = (paper, tool, optIsGUI) => {
       patchedSelectTool = true;
     } else {
       // reshape tool
-      if (patchedReshapeTool) return;
+      if (patchedReshapeTool || !moveTool) return;
       patchedReshapeTool = true;
     }
 
