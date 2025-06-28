@@ -4,6 +4,7 @@ import { loadModules, Modes, BitmapModes } from "./helpers.js";
 import { snapOn, threshold, guideColor } from "./state.js";
 
 const getMoveTool = (tool) => {
+  if (!tool || !isSelectTool(tool)) return;
   if (tool?.mode === "SELECTION_BOX" || tool?.mode === "FILL" || tool?.mode === "POINT" || tool?.mode === "HANDLE") return tool;
   else return tool.boundingBoxTool._modeMap.MOVE;
 };
@@ -13,7 +14,7 @@ let patchedSelectTool = false, patchedReshapeTool = false;
 
 export const updateSelectTool = (paper, tool, optIsGUI) => {
   if (optIsGUI) {
-    moveTool = getMoveTool(tool);
+    moveTool = getMoveTool(tool) ?? moveTool;
     updatePatches(tool);
     return;
   }
