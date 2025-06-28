@@ -168,7 +168,6 @@ export default async function ({ addon, msg, console }) {
     for (let j = 0; j < this._scriptGlowsPreviousFrame.length; j++) {
       const previousFrameGlow = this._scriptGlowsPreviousFrame[j];
       if (requestedGlowsThisFrame.indexOf(previousFrameGlow) < 0) {
-        // Glow turned off.
         this.glowScript(previousFrameGlow, false);
       } else {
         // Still glowing.
@@ -371,6 +370,9 @@ export default async function ({ addon, msg, console }) {
     tab.classList.toggle('unselected');
     tab.classList.toggle('selected');
     vm.emitWorkspaceUpdate();
+    // clear glows to prevent glowOff throwing errors
+    vm.runtime._scriptGlowsPreviousFrame = [];
+    vm.runtime._updateGlows();
   }
   function addTab(enabled, name, scripts) {
     const meta = { name: name, element: null, idx: -1, blocks: new Blocks(vm.runtime) };
