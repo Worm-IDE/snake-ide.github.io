@@ -8,16 +8,17 @@ const getMoveTool = (tool) => {
   else return tool.boundingBoxTool._modeMap.MOVE;
 };
 
+let moveTool = getMoveTool(tool);
+
 export const updateSelectTool = (paper, tool) => {
   const lib = loadModules(paper);
+  moveTool = getMoveTool(tool);
   const {
     math: { checkPointsClose, snapDeltaToAngle },
     view: { getActionBounds, CENTER },
     layer: { getDragCrosshairLayer, CROSSHAIR_FULL_OPACITY, getLayer },
     guide: { hoverBounds },
   } = lib;
-
-  const moveTool = getMoveTool(tool);
 
   // https://github.com/LLK/scratch-paint/blob/2a9fb2356d961200dc849b5b0a090d33f473c0b5/src/helper/selection-tools/move-tool.js
 
