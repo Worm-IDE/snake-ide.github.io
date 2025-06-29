@@ -6,8 +6,7 @@ const manifest = {
   "description": "Adds smooth animations to various aspects of the editor!",
   "credits": [
     {
-      "name": "reflow",
-      "link": " https://github.com/mmmmaaaaarrrrrrkkkkkkkk"
+      "name": "reflow"
     },
     {
       "name": "SharkPool"
@@ -16,7 +15,7 @@ const manifest = {
   "info": [
     {
       "type": "notice",
-      "text": "Animations will not play if you have 'reduce motion' enabled on your device/browser.",
+      "text": "This addon will not take effect if you have 'reduce motion' turned off on your browser/device. See https://mgik.dev/turn-on-motion for how to turn it on.",
       "id": "reduced-motion-notice"
     }
   ],
