@@ -1,6 +1,12 @@
 // Editor Animations (remake of Reactive Animation by <https://github.com/mmmmaaaaarrrrrrkkkkkkkk>)
 // By: SharkPool
 // By: reflow <https://github.com/mmmmaaaaarrrrrrkkkkkkkk>
+
+/* TODO
+- patch custom modal api when added
+- patch adding modals from addons (they dont use react)
+*/
+
 export default async function({ addon }) {
   const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
   const addonKey = "addonAnimations-";
@@ -430,7 +436,7 @@ export default async function({ addon }) {
             const name = entry[0];
             handleOpenAnimation(name);
             attachCloseHijack(name);
-            compileClasses(name.endsWith("Menu") ? undefined : name);
+            compileClasses(name.endsWith("Library") ? name : undefined);
             break;
           }
         }
