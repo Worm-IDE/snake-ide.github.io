@@ -399,10 +399,10 @@ export default async function({ addon }) {
     let lastModalStateID, inEditor;
     ReduxStore.subscribe(() => {
       const reduxState = ReduxStore.getState().scratchGui;
-      const entries = Object.entries(reduxState.modals);
+      let entries = Object.entries(reduxState.modals);
+      entries.push(...Object.entries(reduxState.menus));
       const genID = [
-        ...entries, ...Object.entries(reduxState.menus),
-        ["tab", reduxState.editorTab.activeTabIndex]
+        ...entries, ["tab", reduxState.editorTab.activeTabIndex]
       ];
       const modalStateID = genID.map(entry => entry[1]).join(".");
 
