@@ -375,13 +375,16 @@ export default async function({ addon }) {
     const spriteRow = document.querySelector(`div[class^="sprite-selector_items-wrapper"]`);
     if (!spriteRow) return;
 
-    spriteRow.addEventListener("contextmenu", (event) => {
-      const element = event.target.closest(`div[class*="sprite-selector_sprite-wrapper"]`);
+    document.addEventListener("contextmenu", (event) => {
+      let element = event.target.closest(`div[class*="sprite-selector_sprite-wrapper"]`);
+      if (element) element = element.firstChild;
+      else element = event.target.closest(`div[class^="react-contextmenu-wrapper"][class*="sprite-selector-item_sprite-selector"]`);
+
       if (element) {
         setTimeout(() => {
-          element.firstChild.querySelector("nav").style.opacity = 1;
+          element.querySelector("nav").style.opacity = 1;
           handleOpenAnimation("guiCtxMenu");
-          observeMenuScalers(element.firstChild, true, ["class", "style"]);
+          observeMenuScalers(element, true, ["class", "style"]);
         }, 10);
       }
     });
@@ -427,7 +430,7 @@ export default async function({ addon }) {
             const name = entry[0];
             handleOpenAnimation(name);
             attachCloseHijack(name);
-            compileClasses();
+            compileClasses(name.endsWith("Menu") ? undefined : name);
             break;
           }
         }
