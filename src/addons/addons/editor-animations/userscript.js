@@ -105,7 +105,7 @@ export default async function({ addon }) {
   });
 
   let needsInit = true, animateModals = true, animateLibraries = true, animateButtons = true;
-  let patchedBody = false, sbPatched = false, sbEverPatched = false; listenerAttached = false;
+  let patchedBody = false, sbPatched = false, sbEverPatched = false, listenerAttached = false;
 
   function requestAddonState() {
     animateModals = addon.settings.get("animateModals");
