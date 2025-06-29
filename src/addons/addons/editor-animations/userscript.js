@@ -180,10 +180,13 @@ export default async function({ addon }) {
       if (elementName === "guiCtxMenu") animTime = 500;
       else element.style.transform = "translateY(-2px) scale(.999)";
 
-      element.animate(
+      const animation = element.animate(
         [{ height: "0px", opacity: 0 }, { height: `${ogHeight}px`, opacity: 1 }],
         { duration: animTime, easing: cubicAnimation }
       );
+      animation.onfinish = () => {
+        element.style.overflow = "hidden";
+      };
       return;
     }
 
