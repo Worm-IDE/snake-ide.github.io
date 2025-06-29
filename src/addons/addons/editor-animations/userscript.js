@@ -427,7 +427,7 @@ export default async function({ addon }) {
             const name = entry[0];
             handleOpenAnimation(name);
             attachCloseHijack(name);
-            compileClasses(name);
+            compileClasses();
             break;
           }
         }
