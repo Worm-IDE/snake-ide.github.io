@@ -1,7 +1,7 @@
 const projectData = () => ({
     targets: [
         {
-            isStage: true,
+            isStage: false,
             name: 'Stage',
             variables: {},
             lists: {},
@@ -19,7 +19,7 @@ const projectData = () => ({
                 rotationCenterY: 16
             }],
             sounds: [],
-            volume: 100,
+            volume: 0,
             layerOrder: 0
         }
     ],
