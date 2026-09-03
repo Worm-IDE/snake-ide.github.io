@@ -1,49 +1,75 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- Snake body -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+  <!-- Coiled snake body -->
   <path
-    d="M10 40
-       C 10 28, 20 24, 26 26
-       C 34 29, 34 38, 30 42
-       C 24 48, 26 54, 34 56
-       C 44 58, 52 52, 52 42
-       C 52 32, 46 26, 38 24
-       C 30 22, 24 18, 24 12
-       C 24 8, 28 6, 32 6
-       C 36 6, 40 8, 40 12
-       C 40 15, 38 17, 36 18"
-    fill="none"
-    stroke="#708238"
-    stroke-width="3"
+    d="M20 50
+       C 20 38, 30 32, 40 34
+       C 52 36, 54 46, 48 52
+       C 42 58, 34 58, 30 54
+       C 26 50, 26 44, 32 42
+       C 38 40, 46 42, 50 46
+       C 54 50, 56 56, 54 60
+       C 50 68, 40 72, 30 70
+       C 22 68, 16 62, 16 54
+       C 16 48, 18 52, 20 50"
+    fill="#708238"
+    stroke="#4f5a24"
+    stroke-width="2.5"
     stroke-linecap="round"
     stroke-linejoin="round"
   />
 
-  <!-- Snake head -->
-  <circle cx="36" cy="18" r="4" fill="#708238" />
+  <!-- Neck + head rising from coil -->
+  <path
+    d="M42 40
+       C 44 34, 46 28, 46 22
+       C 46 16, 50 12, 56 12
+       C 62 12, 66 16, 66 22
+       C 66 26, 64 30, 60 32"
+    fill="#708238"
+    stroke="#4f5a24"
+    stroke-width="2.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- Head circle -->
+  <circle cx="60" cy="32" r="7" fill="#708238" stroke="#4f5a24" stroke-width="2.5" />
+
   <!-- Eyes -->
-  <circle cx="35" cy="17" r="0.7" fill="#ffffff" />
-  <circle cx="37" cy="17" r="0.7" fill="#ffffff" />
+  <circle cx="58" cy="30.5" r="1.4" fill="#ffffff" />
+  <circle cx="62" cy="30.5" r="1.4" fill="#ffffff" />
+  <circle cx="58" cy="30.5" r="0.7" fill="#2e374a" />
+  <circle cx="62" cy="30.5" r="0.7" fill="#2e374a" />
+
+  <!-- Cute smile -->
+  <path
+    d="M57 33.5
+       C 58.5 35, 61.5 35, 63 33.5"
+    fill="none"
+    stroke="#2e374a"
+    stroke-width="1.4"
+    stroke-linecap="round"
+  />
 
   <!-- Tongue -->
   <path
-    d="M38.5 19
-       L 41 20
-       L 40 21
-       L 41 22"
+    d="M63.5 33.8
+       L 67 35
+       L 66 36
+       L 67 37"
     fill="none"
     stroke="#c0392b"
-    stroke-width="1.2"
+    stroke-width="1.4"
     stroke-linecap="round"
     stroke-linejoin="round"
   />
 
-  <!-- Belly segments -->
+  <!-- Belly highlight -->
   <path
-    d="M12 39
-       C 12 31, 20 28, 26 30
-       C 32 32, 32 38, 28 42
-       C 22 48, 24 52, 32 54
-       C 42 56, 50 50, 50 42"
+    d="M22 50
+       C 22 40, 32 36, 40 38
+       C 48 40, 50 46, 46 52
+       C 40 60, 30 60, 26 56"
     fill="none"
     stroke="#9bb56a"
     stroke-width="2"
