@@ -16,8 +16,8 @@ export default [
     { tag: 'library', intlLabel: messages.library },
     { tag: 'extcreate', intlLabel: messages.extcreate },
     { tag: 'divider3', intlLabel: messages.scratch, type: 'divider' },
-    { tag: 'divider1', intlLabel: 'Actions', type: 'title' },
-    { tag: 'custom', intlLabel: messages.customextension, type: 'custom', func: (library) => {
+    { tag: 'divider1', intlLabel: 'Actions', type: 'title' }, { tag: 'math', intlLabel: messages.math },
+    { tag: 'initial', intlLabel: messages.initial, type: 'initial thing', func: (library) => {
         library.select(''); // selects custom extension since it's id is ''
     } },
 ];
